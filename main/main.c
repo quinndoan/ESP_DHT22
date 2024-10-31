@@ -2,6 +2,7 @@
 #include "DHT22.h"
 #include "STA.h"
 #include "webserver.h"
+#include "UART.h"
 int DHTgpio = 4;				// my default DHT pin = 4
 float humidity = 0.;
 float temperature = 0.;
@@ -18,6 +19,9 @@ void DHT_task(void *pvParameter)
 		
 		errorHandler(ret);
 
+            // Gửi dữ liệu qua UART
+        send_temperature_and_humidity();
+
 		printf( "Hum %.1f\n", getHumidity() );
 		printf( "Tmp %.1f\n", getTemperature() );
 		
@@ -26,15 +30,6 @@ void DHT_task(void *pvParameter)
 		vTaskDelay( 2000 / portTICK_PERIOD_MS );
 	}
 }
-
-// void app_main()
-// {
-// 	nvs_flash_init();
-// 	vTaskDelay( 1000 / portTICK_PERIOD_MS );
-// 	xTaskCreate( &DHT_task, "DHT_task", 2048, NULL, 5, NULL );
-// }
-
-
 // Hàm app_main chính
 void app_main() {
     // Khởi tạo NVS để lưu dữ liệu không biến đổi (cần thiết cho WiFi)
@@ -50,7 +45,8 @@ void app_main() {
 
     // Khởi động Web Server
     start_webserver();
-
+    initialize_uart();
     // Khởi chạy DHT task để đọc dữ liệu cảm biến định kỳ
     xTaskCreate(&DHT_task, "DHT_task", 2048, NULL, 5, NULL);
+
 }
