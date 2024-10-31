@@ -11,6 +11,7 @@
 #include "nvs_flash.h"
 #include "driver/gpio.h"
 #include "sdkconfig.h"
+#include "esp_netif.h"
 
 //#define DHT_PIN GPIO_NUM_4      // set gpio cho DTH22 là chân 4
 #define DHT_TYPE DHT_TYPE_DHT22
