@@ -14,5 +14,5 @@ void initialize_uart();
 int sendData(const char* logName, const char* data);
 void tx_task(void *arg);
 // void rx_task(void *arg);
-void send_temperature_and_humidity();
+void send_environment_data();
 #endif

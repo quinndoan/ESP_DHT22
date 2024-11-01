@@ -1,5 +1,5 @@
 #include "ADC.h"
-const char *TAG = "Voltage_Measurement";
+const char *TAG_ADC = "Voltage_Measurement";
 #define ADC_CHANNEL ADC1_CHANNEL_0       // Sử dụng kênh ADC1_CHANNEL_0 (GPIO 36)
 #define ADC_WIDTH ADC_WIDTH_BIT_12       // Độ rộng ADC 12 bit
 #define ADC_ATTEN ADC_ATTEN_DB_11        // Độ suy giảm để đo từ 0V đến 3.3V

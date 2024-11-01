@@ -3,6 +3,7 @@
 #include "STA.h"
 #include "webserver.h"
 #include "UART.h"
+#include "ADC.h"
 int DHTgpio = 4;				// my default DHT pin = 4
 float humidity = 0.;
 float temperature = 0.;
@@ -20,11 +21,13 @@ void DHT_task(void *pvParameter)
 		errorHandler(ret);
 
             // Gửi dữ liệu qua UART
-        send_temperature_and_humidity();
+         send_environment_data();
+
 
 		printf( "Hum %.1f\n", getHumidity() );
 		printf( "Tmp %.1f\n", getTemperature() );
-		
+        printf("Voltage %lu mV\n", (unsigned long)read_voltage_mV());
+
 		// -- wait at least 5 sec before reading again ------------
 		// The interval of whole process must be beyond 5 seconds !! 
 		vTaskDelay( 2000 / portTICK_PERIOD_MS );
@@ -42,6 +45,7 @@ void app_main() {
 
     // Kết nối vào WiFi ở chế độ Station
     wifi_init_sta();
+     initialize_adc();
 
     // Khởi động Web Server
     start_webserver();
