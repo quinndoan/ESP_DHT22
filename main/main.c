@@ -8,7 +8,7 @@ int DHTgpio = 4;				// my default DHT pin = 4
 float humidity = 0.;
 float temperature = 0.;
 const char *TAG;
-void DHT_task(void *pvParameter)
+void DataRead_task(void *pvParameter)
 {
 	setDHTgpio( 4 );
 	printf( "Starting DHT Task\n\n");
@@ -28,8 +28,6 @@ void DHT_task(void *pvParameter)
 		printf( "Tmp %.1f\n", getTemperature() );
         printf("Voltage %lu mV\n", (unsigned long)read_voltage_mV());
 
-		// -- wait at least 5 sec before reading again ------------
-		// The interval of whole process must be beyond 5 seconds !! 
 		vTaskDelay( 2000 / portTICK_PERIOD_MS );
 	}
 }
@@ -51,6 +49,6 @@ void app_main() {
     start_webserver();
     initialize_uart();
     // Khởi chạy DHT task để đọc dữ liệu cảm biến định kỳ
-    xTaskCreate(&DHT_task, "DHT_task", 2048, NULL, 5, NULL);
+    xTaskCreate(&DataRead_task, "DataRead_task", 2048, NULL, 5, NULL);
 
 }
