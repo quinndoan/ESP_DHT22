@@ -5,7 +5,7 @@
 
 static const char* TAG = "DHT";
 
-extern int DHTgpio;				// my default DHT pin = 4
+extern int DHTgpio;			
 extern float humidity;
 extern float temperature;
 
@@ -43,17 +43,8 @@ void errorHandler(int response)
 	}
 }
 
-/*-------------------------------------------------------------------------------
-;
-;	get next state 
-;
-;	The logic is not good. It needs some interrupt blocking / priority
-;	to ensure it runs in realtime.
-;
-;--------------------------------------------------------------------------------*/
-
-int getSignalLevel( int usTimeOut, bool state )
-{
+int getSignalLevel( int usTimeOut, bool state )		// hàm đo thời gian (microsecond) trạng thái LOW hoặc HIGH
+{	
 
 	int uSec = 0;
 	while( gpio_get_level(DHTgpio)==state ) {

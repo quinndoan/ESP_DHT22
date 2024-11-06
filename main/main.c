@@ -11,18 +11,17 @@ const char *TAG;
 void DataRead_task(void *pvParameter)
 {
 	setDHTgpio( 4 );
-	printf( "Starting DHT Task\n\n");
+	printf( "Starting DHT & ADC Task\n\n");
 
 	while(1) {
 	
-		printf("=== Reading DHT ===\n" );
+		printf("=== Reading DHT & ADC ===\n" );
 		int ret = readDHT();
 		
 		errorHandler(ret);
 
             // Gửi dữ liệu qua UART
-         send_environment_data();
-
+        send_environment_data();
 
 		printf( "Hum %.1f\n", getHumidity() );
 		printf( "Tmp %.1f\n", getTemperature() );

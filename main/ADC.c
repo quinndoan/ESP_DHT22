@@ -10,7 +10,7 @@ void initialize_adc() {
     adc1_config_channel_atten(ADC_CHANNEL, ADC_ATTEN);
 
     // Khởi tạo và hiệu chỉnh ADC với giá trị Vref
-    adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
+    adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));       // khởi tạo bộ nhớ động, intial =0
     esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN, ADC_WIDTH, DEFAULT_VREF, adc_chars);
 }
 
